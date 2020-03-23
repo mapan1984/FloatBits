@@ -23,7 +23,12 @@ class Grid extends Component {
 
     render() {
         console.log('grid render')
-        return `<input type="checkbox" ${this.state.checked ? 'checked' : ''}>`
+        return [
+            `<div>`,
+                `<label for="grid${this.props.index}">${31 - this.props.index}</label>`,
+                `<input type="checkbox" id="grid${this.props.index}" ${this.state.checked ? 'checked' : ''}>`,
+            `</div>`,
+        ].join("")
     }
 }
 

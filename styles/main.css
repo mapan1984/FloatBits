@@ -1,0 +1,24 @@
+.grids, .result {
+  margin: 5px;
+  display: inline-flex;
+}
+
+.grid {
+  display: grid;
+  text-align: center;
+  border: 1px solid #000;
+  padding: 5px 2px;
+}
+
+.sign {
+  background: #BBF;
+}
+
+.exp {
+  background: #BFB;
+}
+
+.frac {
+  background: #FBB;
+}
+

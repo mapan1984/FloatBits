@@ -1,11 +1,11 @@
 import Float from './float.js'
-import Grids from './grids.js'
+import App from './app.js'
 import { mount } from './component.js'
 
 
 let float = new Float()
 
 mount(
-    new Grids({float: float}),
+    new App({float: float}),
     document.querySelector('.root')
 )

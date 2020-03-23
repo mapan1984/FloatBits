@@ -50,6 +50,57 @@ class Float {
 
     }
 
+    get E() {
+        let k = this.k  // exp 的位数
+        let exp = this.exp
+        if (exp.reduce((a, b) => a & b) == 1) {
+        } else if (exp.reduce((a, b) => a | b) == 0) {
+            console.log('exp 全为 0，非规格化')
+            // exp 全为 0，非规格化
+            // 计算阶码
+            let bias = Math.pow(2, k - 1) - 1
+            let E = 1 - bias
+            console.log(`阶码：${E}`)
+            return E
+        } else {
+            console.log('exp 规格化(!=0 && != 255)')
+            // exp 规格化(!=0 && != 255)
+            // 计算阶码
+            let bias = Math.pow(2, k - 1) - 1
+            let e = 0
+            for (let i = k-1; i >= 0; i--) {
+                e += Math.pow(2, i) * exp[k - 1 - i]
+            }
+            let E = e - bias
+            console.log(`阶码：${E}`)
+            return E
+        }
+    }
+
+    get M() {
+        let n = this.n  // frac 的位数
+        let exp = this.exp
+        if (exp.reduce((a, b) => a & b) == 1) {
+        } else if (exp.reduce((a, b) => a | b) == 0) {
+            // 计算尾数
+            let M = 0
+            for (let i = -1; i >= -n; i--) {
+                M += Math.pow(2, i) * this.frac[-1 - i]
+            }
+            console.log(`尾数：${M}`)
+            return M
+        } else {
+            // 计算尾数
+            let M = 1
+            for (let i = -1; i >= -n; i--) {
+                M += Math.pow(2, i) * this.frac[-1 - i]
+            }
+            console.log(`尾数：${M}`)
+            return M
+        }
+
+    }
+
     get value() {
         // 符号位
         let sign = Math.pow(-1, this.sign[0])

@@ -13,61 +13,38 @@ class Grids extends Component {
         }
     }
 
-    onClick() {
-        console.log('grids onclick')
-    }
-
     handleClick(index, state) {
         console.log('grids handleClick')
         let bits = this.state.bits.slice()
         bits[index] = state.checked == true ? 1 : 0
-        if (this.props && this.props.float) {
-            this.props.float.bits = bits
+
+        if (this.props && this.props.handleClick) {
+            this.props.handleClick(bits)
         }
-        this.setState({
-            bits: bits
-        })
     }
 
-    // render() {
-    //     let dom = ['<div>']
-    //     for (let b of this.state) {
-    //         // dom.push(`<input type="checkbox" ${b == 1 ? 'checked' : ''}>`)
-    //         let grid = new Grid({checked: b == 1})
-
-    //         dom.push(grid.render())
-    //     }
-    //     dom.push('</div>')
-    //     return dom.join('')
-    // }
-
     renderDOM() {
-        console.log(this.state.bits)
+        console.log('grids renderDOM')
         const div = document.createElement('div')
         for (let [i, b] of this.state.bits.entries()) {
-            if (i == 1) { // 符号位|阶码分割
-                const span = document.createElement('span')
-                span.innerText = '|'
-                div.appendChild(span)
-            }
-            if (i == 9) { // 阶码|尾数分割
-                const span = document.createElement('span')
-                span.innerText = '|'
-                div.appendChild(span)
-            }
             let grid = new Grid({
                 checked: b == 1,
                 index: i,
                 handleClick: this.handleClick.bind(this),
+                className: i == 0 ? 'sign grid' : i < 9 ? 'exp grid' : 'frac grid',
             })
             div.appendChild(grid.renderDOM())
         }
 
-        const span = document.createElement('span')
-        span.innerText = this.props.float.value
-        div.appendChild(span)
-
         this.el = div
+
+        if (this.props && this.props.className) {
+            this.el.setAttribute('class', this.props.className)
+        }
+        if (this.props && this.props.id) {
+            this.el.setAttribute('id', this.props.id)
+        }
+
         if (this.onClick) {
             this.el.addEventListener('click', this.onClick.bind(this), false)
         }

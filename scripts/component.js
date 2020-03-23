@@ -14,6 +14,12 @@ class Component {
 
     renderDOM() {
         this.el = createDOMFromString(this.render());
+        if (this.props && this.props.className) {
+            this.el.setAttribute('class', this.props.className)
+        }
+        if (this.props && this.props.id) {
+            this.el.setAttribute('id', this.props.id)
+        }
         if (this.onClick) {
             this.el.addEventListener("click", this.onClick.bind(this), false);
         }
