@@ -115,9 +115,9 @@ class Float {
                 console.log('frac 全为 0')
                 // frac 全为 0
                 if (sign == 1) {
-                    return '+Infinity'
-                } else {
                     return '-Infinity'
+                } else {
+                    return '+Infinity'
                 }
             } else {
                 console.log('frac 不全为 0')
@@ -146,7 +146,7 @@ class Float {
             // 计算阶码
             let bias = Math.pow(2, k - 1) - 1
             let e = 0
-            for (let i = k-1; i >= 0; i--) {
+            for (let i = k - 1; i >= 0; i--) {
                 e += Math.pow(2, i) * exp[k - 1 - i]
             }
             let E = e - bias
